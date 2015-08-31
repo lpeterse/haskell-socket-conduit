@@ -21,6 +21,8 @@ bug-reports:         https://github.com/lpeterse/haskell-socket-conduit/issues
 library
   exposed-modules:     System.Socket.Conduit
   build-depends:       base >=4.8 && <5
+                     , bytestring
+                     , transformers
                      , socket >= 0.5.3
                      , conduit >= 1.2.0
   default-language:    Haskell2010
