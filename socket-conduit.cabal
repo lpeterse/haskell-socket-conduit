@@ -1,0 +1,26 @@
+name:                socket-conduit
+version:             0.1.0.0
+synopsis:            A library for creating conduits from sockets.
+description:
+  This library is the canonical way to work with streaming
+  sockets instead of using the low-level socket interface directly.
+  .
+  The library is only concerned with creating conduits from sockets.
+  It does not introduce inferior methods for socket creation or
+  new conduit combinators.
+license:             MIT
+license-file:        LICENSE
+author:              Lars Petersen
+maintainer:          info@lars-petersen.net
+category:            System, Network, Conduit
+build-type:          Simple
+cabal-version:       >=1.10
+homepage:            https://github.com/lpeterse/haskell-socket-conduit
+bug-reports:         https://github.com/lpeterse/haskell-socket-conduit/issues
+
+library
+  exposed-modules:     System.Socket.Conduit
+  build-depends:       base >=4.8 && <5
+                     , socket >= 0.5.3
+                     , conduit >= 1.2.0
+  default-language:    Haskell2010
