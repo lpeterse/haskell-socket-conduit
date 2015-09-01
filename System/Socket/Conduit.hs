@@ -1,4 +1,47 @@
 {-# LANGUAGE RankNTypes #-}
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  System.Socket.Conduit
+-- Copyright   :  (c) Lars Petersen 2015
+-- License     :  MIT
+--
+-- Maintainer  :  info@lars-petersen.net
+-- Stability   :  experimental
+--
+-- This requests the Haskell website and prints it to stdout.
+-- Note the use of IPv4-mapped `Inet6` addresses: This will work
+-- even if you don't have IPv6 connectivity yet and is the preferred method
+-- when writing new applications.
+--
+-- > {-# LANGUAGE OverloadedStrings #-}
+-- > module Main where
+-- >
+-- > import Conduit
+-- >
+-- > import Control.Concurrent.Async
+-- > import Control.Monad
+-- >
+-- > import Data.ByteString.Lazy as B
+-- > import Data.Monoid
+-- >
+-- > import System.Socket
+-- > import System.Socket.Conduit (consumer, producer)
+-- >
+-- > main :: IO ()
+-- > main = do
+-- >   withConnectedSocket host port (aiAll `mappend` aiV4Mapped) $ \sock-> do
+-- >     let _ = sock :: Socket Inet6 Stream TCP
+-- >     void $ concurrently
+-- >       (yield req $$ consumer sock mempty)
+-- >       (producer sock buf mempty $$ stdoutC)
+-- >   where
+-- >     host = "www.haskell.org"
+-- >     port = "80"
+-- >     req  = "GET / HTTP/1.0\r\nHost: www.haskell.org\r\n\r\n"
+-- >     buf  = 4096
+--
+-----------------------------------------------------------------------------
+
 module System.Socket.Conduit where
 
 import Control.Monad              (when)
